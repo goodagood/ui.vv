@@ -2,6 +2,9 @@
 *~
 .*.swp
 
+# distributions
+dist/
+
 # Logs
 logs
 *.log

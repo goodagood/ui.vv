@@ -1,0 +1,15 @@
+
+What's benefits to use *immutable* data for HTML elements as `textarea`,
+which by it's design should contain *mutable* data.
+
+I am using `React.js` recently, but actually I keep using *mutable* object
+if the data suppose to be *mutated*. Am I wrong?
+
+As an example, let me show an `CommentEditor`:
+
+    //...
+
+    class CommentEditor extends React.Component{
+        constructor(props){
+        }
+    }

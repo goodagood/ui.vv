@@ -1,0 +1,7 @@
+
+install dependencies:
+     $ cd srv.express && npm install
+
+run the app:
+     $ DEBUG=srv.express:* npm start
+
