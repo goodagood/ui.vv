@@ -1,0 +1,18 @@
+
+# using browserify to do reactjs
+
+referred to facebook's doc:
+
+    https://facebook.github.io/react/docs/optimizing-performance.html#browserify
+
+2017 0803 1700pm
+
+    browserify ./index.js \
+        -g [ envify --NODE_ENV production ] \
+        -g uglifyify \
+        -p bundle-collapser/plugin \
+        | uglifyjs --compress --mangle > ./bundle.js
+
+
+
+

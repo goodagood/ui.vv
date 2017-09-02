@@ -5,3 +5,7 @@ install dependencies:
 run the app:
      $ DEBUG=srv.express:* npm start
 
+
+# make node_module public at least in development
+because we are going to use npm to install even css
+

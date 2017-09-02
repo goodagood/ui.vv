@@ -1,0 +1,12 @@
+
+in node_module/
+
+    ln -s .. ui.vv
+
+    # so there is a link to ui.vv
+    # we should be able to use:
+    # require('ui.vv/relative/path')
+    # in node.js files
+
+
+
