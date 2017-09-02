@@ -2,8 +2,15 @@
 *~
 .*.swp
 
+
 # distributions
 dist/
+
+# my middle files
+es5ed/
+
+__pycache__/
+
 
 # Logs
 logs

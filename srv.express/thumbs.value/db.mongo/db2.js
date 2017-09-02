@@ -12,8 +12,6 @@ var MongoClient = require('mongodb').MongoClient;
 var Promise = require("bluebird");
 
 
-//var gensamp = require("./gensamp.js");
-
 //var p = console.log;
 
 

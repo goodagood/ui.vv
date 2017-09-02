@@ -5,10 +5,8 @@ var router = express.Router();
 var _ = require("lodash");
 
 
-//var crud = require('my.project/mdb/db2.crud.js');
-//var db2fake = require('my.project/mdb/db2.fake.js');
-var crud = require('ui.vv/dbs/thumb.mongo/db2.crud.js');
-var db2fake = require('ui.vv/dbs/thumb.mongo/db2.fake.js');
+var crud = require('./db.mongo/db2.crud.js');
+var db2fake = require('./db.mongo/db2.fake.js');
 
 
 
