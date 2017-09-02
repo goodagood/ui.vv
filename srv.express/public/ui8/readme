@@ -14,5 +14,9 @@ referred to facebook's doc:
         | uglifyjs --compress --mangle > ./bundle.js
 
 
+# building tools
+
+    npm install -g  gulp-cli
+#
 
 
