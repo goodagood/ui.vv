@@ -53,7 +53,7 @@ class WordsEditor extends React.Component {
     }
 
 
-    getDefaultValue (){
+    getWords (){
 
         var text = this.props.obj.getWords();
 
@@ -85,7 +85,7 @@ class WordsEditor extends React.Component {
 
     render(){
 
-        var text = this.getDefaultValue();
+        var text = this.getWords();
 
         var inlineStyles = {
             textarea: {

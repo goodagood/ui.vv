@@ -20,6 +20,7 @@ function setMenuItemSwitch(mState, dataCache){
             case 'add':
                 //p('on event of ... add, 0827 pm');
                 // empty words object
+
                 var obj = wordsObj.makeWordsObj();
                 // render to id: <main id='main'>..
                 words.render_one_item(obj, dataCache, 'main', mState);

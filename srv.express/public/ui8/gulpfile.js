@@ -17,7 +17,7 @@ var sourcemaps = require('gulp-sourcemaps');
 gulp.task('hi', ['clean', 'es6', 'scss'], () => {
     //console.log('task: hi');
     //return gulp.src('./src/**/*.js')
-    return gulp.src('./src/**/a.js')
+    return gulp.src('./src/index.js')
        .pipe(browserify({
         // options
         //sourceType: 'module',
