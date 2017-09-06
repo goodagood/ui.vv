@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.render_one_item = exports.WordsEditor = undefined;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -52,6 +54,8 @@ var WordsEditor = function (_React$Component) {
         _this.handleTextChange = _this.handleTextChange.bind(_this);
         _this.changeText = _this.changeText.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.handleBlur = _this.handleBlur.bind(_this);
+        _this.handleClick = _this.handleClick.bind(_this);
         return _this;
     }
 
@@ -79,13 +83,18 @@ var WordsEditor = function (_React$Component) {
             this.props.obj.setWords(text);
         }
     }, {
-        key: 'getDefaultValue',
-        value: function getDefaultValue() {
-
+        key: 'getPlaceHolder',
+        value: function getPlaceHolder() {
+            var placeHolder = null;
             var text = this.props.obj.getWords();
 
-            if (!text) text = 'input words here...';
-
+            if (!text) placeHolder = 'input words here...';
+            return placeHolder;
+        }
+    }, {
+        key: 'getWords',
+        value: function getWords() {
+            var text = this.props.obj.getWords();
             return text;
         }
     }, {
@@ -107,10 +116,53 @@ var WordsEditor = function (_React$Component) {
             }
         }
     }, {
-        key: 'render',
-        value: function render() {
+        key: 'handleBlur',
+        value: function handleBlur(e) {
+            e.preventDefault();
+            this.setState({ showForm: false });
+        }
+    }, {
+        key: 'handleClick',
+        value: function handleClick(e) {
+            e.preventDefault();
+            this.setState({ showForm: true });
+        }
+    }, {
+        key: 'renderText',
+        value: function renderText() {
 
-            var text = this.getDefaultValue();
+            var text = this.getWords();
+
+            var inlineStyles = {
+                textarea: {
+                    width: "95%",
+                    height: "5rem",
+                    color: "blue"
+                }
+            };
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'pre',
+                    { onClick: this.handleClick },
+                    text
+                )
+            );
+        }
+    }, {
+        key: 'renderForm',
+        value: function renderForm() {
+
+            var opt = {};
+            var text = this.getWords();
+
+            if (text) {
+                opt.value = text;
+            } else {
+                opt.placeholder = this.getPlaceHolder();
+            }
 
             var inlineStyles = {
                 textarea: {
@@ -123,30 +175,32 @@ var WordsEditor = function (_React$Component) {
                     clear: "left"
                 }
 
-                // set the height according to lines of text
-            };var nlines = text.split(/\r?\n/).length;
-            if (nlines > 4) {
-                if (nlines > 20) {
-                    nlines = 20;
-                }
-                inlineStyles.textarea.height = nlines + 'rem';
-            }
+                //// set the height according to lines of text
+                //var nlines = text.split(/\r?\n/).length;
+                //if(nlines > 4){
+                //    if(nlines > 20){
+                //        nlines = 20;
+                //    }
+                //    inlineStyles.textarea.height = `${nlines}rem`;
+                //}
 
-            //defaultValue={text}
-            // onClick={this.handleSubmit}
-            return _react2.default.createElement(
+
+                //value={text}
+                //placeholder={this.getPlaceHolder()}
+            };return _react2.default.createElement(
                 'form',
                 { onSubmit: this.handleSubmit },
-                _react2.default.createElement('textarea', {
+                _react2.default.createElement('textarea', _extends({
                     className: 'sizeisquestion',
                     type: 'textarea',
                     style: inlineStyles.textarea,
-                    wrap: 'off',
+                    wrap: 'off'
 
-                    placeholder: text,
+                }, opt, {
 
-                    onChange: this.handleTextChange
-                }),
+                    onChange: this.handleTextChange,
+                    onBlur: this.handleBlur
+                })),
                 _react2.default.createElement(
                     'button',
                     { onClick: this.handleSubmit,
@@ -155,6 +209,13 @@ var WordsEditor = function (_React$Component) {
                     'Submit'
                 )
             );
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            if (this.state.showForm) return this.renderForm();
+
+            return this.renderText();
         }
     }]);
 

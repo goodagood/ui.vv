@@ -129,7 +129,7 @@ module.exports.pool = pool;
 //    valueCollection(function(err, col){
 //        if(err) return callback(err);
 //
-//        col.findOne({parentid: {$exists: false}}, callback);
+//        col.findOne({upLinkId: {$exists: false}}, callback);
 //    });
 //}
 //

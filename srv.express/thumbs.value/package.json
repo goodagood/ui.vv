@@ -1,0 +1,17 @@
+{
+  "name": "thumbs.value",
+  "version": "1.0.0",
+  "description": "Actually a route for express, and it's dependencies. put things together for easy deployment.",
+  "main": "sysvalue.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.7.0",
+    "glob": "^7.1.2"
+  }
+}

@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Async Dislogs Example</title>
+  <script src="//cdn.jsdelivr.net/bluebird/3.5.0/bluebird.js"></script>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      var time = document.getElementById('time-stamp');
+      clockTick();
+      setInterval(clockTick, 1000);
+      function clockTick() {
+        time.innerHTML = new Date().toLocaleTimeString();
+      }
+    });
+  </script>
+</head>
+<body>
+  <p>The current time is <span id="time-stamp"></span>.</p>
+  <p>Your name is <span id="prompt"></span>.</p>
+  <button id="action">Set Name</button>
+</body>
+</html>
+

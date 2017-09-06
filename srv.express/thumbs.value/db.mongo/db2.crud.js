@@ -18,7 +18,7 @@ const pool = db2.pool;
 
 
 function findOne(filter){
-    filter = filter || {parentid:{'$exists':false}};
+    filter = filter || {upLinkId:{'$exists':false}};
 
     return pool.getCollection('words').then(function(wcoll){
         return wcoll.findOne(filter);
@@ -27,7 +27,7 @@ function findOne(filter){
 
 function find(filter, opt){
 
-    filter = filter || {parentid:{'$exists':false}};
+    filter = filter || {upLinkId:{'$exists':false}};
 
     // opt can have: skip, limit
 
@@ -76,7 +76,7 @@ function upsertWords(data){
     if(!data._id && !data['id']){
         return insertDoc(data.words);
 
-        //if(!data.parentid){
+        //if(!data.upLinkId){
         //    return insertDoc(data.words);
         //}else{
         //    return insertSub(data);

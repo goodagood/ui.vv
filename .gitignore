@@ -2,6 +2,9 @@
 *~
 .*.swp
 
+ui8/dist/
+ui8/src/es5ed/
+
 
 # distributions
 dist/
