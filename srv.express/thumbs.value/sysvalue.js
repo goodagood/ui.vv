@@ -106,7 +106,9 @@ router.post('/fake.thumb', function (req, res) {
 router.get(/file.+/
         ,function(req,res,next){
             console.log('making this folder static also');
+            console.log('url: ', req.url);
             req.url = req.url.slice('/file'.length);
+            console.log('chopped url: ', req.url);
             next();
         }
         ,express.static(__dirname)
