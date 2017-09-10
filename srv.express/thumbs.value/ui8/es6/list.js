@@ -21,12 +21,12 @@ function ContentList (props){
     var contentList = props.contentList;
     var menu        = props.menuInterface;
 
-    //console.log(typeof contentList, Object.keys(contentList));
+    console.log(typeof contentList, contentList.length);//, Object.keys(contentList));
     //console.log(typeof contentList, menuItems, typeof menuCallback);
 
     function mkList (){
         return contentList.map((content)=>{
-            //console.log(content.id);
+            //console.log('content id: ', content.getIdStr());
             let id = content.getIdStr();
             let opt= {"id": id};
 
@@ -49,13 +49,28 @@ function ContentList (props){
                 return `${net} (^${up}, ${down}v) `;
             }
 
+            var msg = 'empty msg';
+            if(typeof content.getWords === 'function'){
+                msg = content.getWords();
+                if(msg.length > 100) msg = msg.slice(0,100);
+            }
+
+            if(typeof content.getWords !== 'function'){
+                console.log("FUCK IT'S NOT FUNCTION", content.getIdStr());
+                return (
+                <li>
+                    not function 'content.getWords().slice(0, 100)'
+                </li>
+                    );
+            }
+
             return(
                 <li
                         key={id} 
                         onClick={clickTriger}
                 >
                     <span>{countThumbs()}</span>
-                    {content.getWords().slice(0, 100)}
+                    {msg}
                         
                 </li>
             );

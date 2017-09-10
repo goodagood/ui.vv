@@ -9,8 +9,8 @@ const choose = require('./ui/choose.js');
 function setMenuItemSwitch(mState, dataCache){
     mState.on('currentItemSet', ()=>{
         let p = console.log;
-        console.log('menu currentItemSet event occured');
-        console.log(mState.currentItem);
+        //console.log('menu currentItemSet event occured');
+        //console.log(mState.currentItem);
 
         switch(mState.currentItem){
             case 'list':

@@ -14,16 +14,18 @@ var sourcemaps = require('gulp-sourcemaps');
  * then browserify everything in dir src/
  */
 
-gulp.task('hi', ['clean', 'es6', 'scss', 'copy'], () => {
-    //console.log('task: hi');
-    //return gulp.src('./src/**/*.js')
+gulp.task('build', ['es6', 'scss'], () => {
+    return build()
+});
+
+function build(){
     return gulp.src('./src/index.js')
        .pipe(browserify({
         // options
         //sourceType: 'module',
        }))
        .pipe(gulp.dest('./dist'));
-});
+}
 
 gulp.task('es6', () => {
     // babel transform all js in es6 to es5ed
@@ -37,20 +39,24 @@ gulp.task('es6', () => {
 
 
 gulp.task('scss', function () {
-    return gulp.src('./src/scss/**/*.scss')
+    return gulp.src('./scss/**/*.scss')
     .pipe(sass().on('error', sass.logError))    
     //.pipe(sourcemaps.write())
     .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('clean', function () {
-    return del([
-        './dist/**/*',
-        './src/es5ed/**/*',
-        //'./src/rct/**/*.js',
-   ]);
+    return clean();
 });
 
+function clean(){
+    return del([
+            './dist/**/*',
+            './src/es5ed/**/*',
+    ]);
+}
+
+// not used now
 gulp.task('copy', function () {
     return gulp.src('./src/index.html')
     .pipe(gulp.dest('./dist'));

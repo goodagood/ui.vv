@@ -47,8 +47,8 @@ const list = require("./content.list.js");
 const menu = require('../es5ed/menu.js');
 
 mState.on('contextSet', ()=>{
-    console.log('menu context event occured');
-    console.log(mState.context);
+    //console.log('menu context event occured');
+    //console.log(mState.context);
     menu.renderNavMenu(mState.context, console.log);
 });
 

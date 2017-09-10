@@ -1,6 +1,6 @@
 
-$HeaderHeight: 2em;
-$FootHeight: 2em;
+$HeaderHeight: 2rem;
+$FootHeight: 2rem;
 $MaxBodyWidth: 1024px;
 
 html {
@@ -14,6 +14,8 @@ html {
         background-color: silver; 
         //border-style: solid;
         //border-width: 2px;
+
+        font-size: 1.1rem;
     }
 
     header, nav, main, footer {
@@ -21,8 +23,10 @@ html {
     }
 
     footer {
-        margin-top: 1.5em;
+        margin-top: 1.5rem;
         text-align: center;
+
+        font-size: 0.9rem;
     }
 
     main {
@@ -37,4 +41,10 @@ footer {
     p{
         font-family: "Times New Roman", serif, monospace;
     }
+}
+
+.logo {
+    font-size: 1.2 rem;
+    font-weight: bold;
+    font-family: monospace,"Times New Roman", serif     ;
 }

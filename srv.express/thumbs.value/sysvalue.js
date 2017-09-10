@@ -26,8 +26,11 @@ router.get('/', function (req, res) {
 });
 
 router.get('/index', function (req, res) {
-    var indexhtml = path.join(__dirname, "ui8/dist/index.html");
-    p('index html: ', indexhtml);
+    //var indexhtml = path.join(__dirname, "ui8/dist/index.html");
+
+    var indexhtml = path.join(__dirname, "index.html");
+    //p('index html: ', indexhtml);
+
   res.sendFile(indexhtml);
 });
 
