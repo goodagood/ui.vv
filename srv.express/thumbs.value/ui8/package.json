@@ -29,6 +29,7 @@
     "bootstrap": "^4.0.0-beta",
     "immutable": "^3.8.1",
     "jquery": "^3.2.1",
+    "markdown": "^0.5.0",
     "popper.js": "^1.12.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

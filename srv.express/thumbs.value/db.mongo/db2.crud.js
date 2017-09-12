@@ -53,6 +53,9 @@ function insertDoc(data){
         test: true,
     }, data);
 
+    if(typeof dataObj.words !== 'string') return Promised.reject('not words 0911 0954');
+    if(dataObj.words.length < 2) return Promised.reject('single letter? 0911 0955');
+
     return insertOne(dataObj).then(function(ret){
         var d = {
             "id": ret.insertedId.toString(),

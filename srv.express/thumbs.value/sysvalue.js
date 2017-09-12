@@ -62,6 +62,12 @@ router.post('/new.words', function (req, res) {
     if (!'words' in req.body){
         return res.json({err: 'no words in request'});
     }
+    if (!req.body.words.hasOwnProperty('length')){
+        return res.json({err: 'might not be string to add as words'});
+    }
+    if (req.body.words.length < 2){
+        return res.json({err: 'too short to add as words'});
+    }
 
     // skip, limit
     var opt = 'opt' in req.body? req.body.opt : {};
@@ -74,7 +80,7 @@ router.post('/new.words', function (req, res) {
 
 
 router.post('/update', function (req, res) {
-    console.log('/update: ', req.body);
+    //console.log('/update: ', req.body);
 
     if (!('words' in req.body)){
         return res.json({err: 'no words in request'});

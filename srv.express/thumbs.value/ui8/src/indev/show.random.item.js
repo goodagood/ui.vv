@@ -1,5 +1,5 @@
 
-const displayOne = require("../es5ed/element/item.viewer.js");
+const viewer = require("../es5ed/element/item.viewer.js");
 const comm = require("../es5ed/element/comment.js");
 
 const listor = require("../es5ed/list.js");
@@ -9,7 +9,7 @@ function showOneRandom(objList, mState){
 
     const index = Math.floor(Math.random()*len);
 
-    displayOne.renderItemViewer(objList[index], objList, 'main', mState);
+    viewer.renderItemViewer(objList[index], objList, 'main', mState);
 }
 
 function addOne(mState){
@@ -36,9 +36,9 @@ function randomComment(cached){
 // mState is the mState
 function demo(cached, mState, millis = 3000){
     //addOne(mState);
-    //showOneRandom(cached.getObjList(), mState);
+    showOneRandom(cached.getObjList(), mState);
 
-    list(cached.getObjList(), mState);
+    //list(cached.getObjList(), mState);
 
     //randomComment(cached);
 

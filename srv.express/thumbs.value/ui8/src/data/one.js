@@ -166,12 +166,17 @@ function makeWordsObj(data){
 
 
     _o.getWords = ()=>{
-        if(! _d['words']){
-            console.log('nothing in words, you got suprised, can we have no words?');
-            console.log(_d['id'], _d.milli);
-            return 'suprise, can we have no words?';
-            //throw `why nowords? ${getIdStr()}`;
+        if(!('words' in _d)){
+            return null;
         }
+        
+        //if(! _d['words']){
+        //    console.log('nothing in words, you got suprised, can we have no words?');
+        //    console.log(_d['id'], _d.milli);
+        //    return 'suprise, can we have no words?';
+        //    //throw `why nowords? ${getIdStr()}`;
+        //}
+
         return _d['words'];
     }
 

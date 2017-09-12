@@ -83,8 +83,11 @@ class CommentButton extends React.Component {
 
 
     renderEditor(){
+        var emptyStr = '';
+                //<Editor text={this.props.obj.getWords()}
         return (
-                <Editor text={this.props.obj.getWords()}
+                <Editor text={emptyStr}
+                    hint={'this should be the hint'}
                     handleSubmit={this.prepareComment_OnSubmitFunction()}
                     handleCancel={this.noop}
                     handleChange={this.prepareComment_OnChangeFunction()}

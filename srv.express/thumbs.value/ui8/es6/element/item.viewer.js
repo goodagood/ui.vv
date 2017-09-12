@@ -4,7 +4,9 @@
  */
 
 import React from 'react';
-const ReactDOM = require('react-dom');
+import ReactDOM from 'react-dom';
+
+import {markdown} from  'markdown';
 
 import Thumbs from  './thumbs.js';
 import {ActionButton} from  './button.act.js';
@@ -28,6 +30,7 @@ class ItemViewer extends React.Component {
         this.thumbs = this.props.obj.prepare_thumbs_obj();
 
         this.addComment = this.addComment.bind(this);
+        this.mkMarkdown = this.mkMarkdown.bind(this);
 
         console.log('set global');
         window.item = this;
@@ -36,6 +39,27 @@ class ItemViewer extends React.Component {
 
     addComment(){
         console.log('add comment for ', this.props.obj.getIdStr());
+    }
+
+    mkMarkdown(preStyle){
+        var text = this.props.obj.getWords();
+        var md;
+
+        //console.log('to html markdown? : ', text.slice(0, 100));
+
+        try{
+            var tmp = markdown.toHTML(text);
+        //console.log('already markdown? : ', tmp.slice(0, 100));
+
+            md = <div dangerouslySetInnerHTML={{__html:tmp}} onClick={this.handleClick} />;
+        }catch(err){
+            //console.log('try markdown catched ', err);
+
+            md = <pre onClick={this.handleClick} style={preStyle}>
+                    {text}
+                </pre>;
+        }
+        return md;
     }
 
 
@@ -48,12 +72,16 @@ class ItemViewer extends React.Component {
             //wordWrap: break-word;       /* Internet Explorer 5.5+ */
         }
 
-                    //<ActionButton clickCallback={this.addComment} text={"Add Comments"} />
+        //var markdowned = this.mkMarkdown();
+
+                        //{this.props.obj.getWords()}
+                    //<pre style={preStyle}>
+                    //    {md}
+                    //</pre>
+                    //{markdowned}
         return (
                 <div className="itemViewer">
-                    <pre style={preStyle}>
-                        {this.props.obj.getWords()}
-                    </pre>
+                    {this.mkMarkdown(preStyle)}
                     <Thumbs thumbsobj={this.thumbs} />
 
                     <CommentButton buttonText={"Comment"} obj={this.props.obj} />
@@ -65,6 +93,21 @@ class ItemViewer extends React.Component {
 
 }
 
+//?
+function md_or_pre(text){
+        try{
+            text = markdown.toHTML(text);
+        var md = markdown.toHTML(this.props.obj.getWords);
+        }catch(err){
+            console.log('try markdown catched ', err);
+
+            text = `
+                <pre onClick={this.handleClick}>
+                    ${text}
+                </pre>`;
+        }
+        return text;
+}
 
 // cache should be used when comments added to add it to cache, but not
 function renderItemViewer(dataObj, cache, elementId, mState){

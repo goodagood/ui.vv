@@ -4,8 +4,22 @@ import React from 'react';
 
 import {Map} from 'immutable';
 
+import {markdown} from 'markdown';
 
+/*
+ * props could support: 
+ *      text, 
+ *      handleChange, change handler, 
+ *      handleSubmit, submit handler, 
+ *      handleCancel
+ *      options ? not used
+ *
+ *      hint, for placeholder attribute of textarea
+ *
+ */
 class Editor extends React.Component {
+    // props
+    //
 
     constructor(props){
         super(props);
@@ -22,17 +36,24 @@ class Editor extends React.Component {
             }
         };
 
+        // it's not necessary to make text as state
+        this.text = props.text || '';
+
         this.state = {
-            text: props.text || '',
             textareaStyle: Map(initStyle.textarea),
             buttonStyle: Map(initStyle.button),
             cancelable: true,
+
+            preview: false,
         }
 
-        this.hints = 'input words ...' || props.hints;
+        this.hint = 'input words ...' || props.hint;
+
+        // this is rediculous
+        this.setState = this.setState.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onChange = this.onChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
 
         //indev del it!
         window.ed = this;
@@ -41,7 +62,7 @@ class Editor extends React.Component {
     handleSubmit (e){
         e.preventDefault();
         if(typeof this.props.handleSubmit === 'function'){
-            this.props.handleSubmit(e, this.state.text);
+            this.props.handleSubmit(e, this.text);
         }
     }
 
@@ -50,12 +71,13 @@ class Editor extends React.Component {
         e.preventDefault();
     }
 
-    onChange (e){
+    handleChange (e){
         e.preventDefault();
         let el = e.target;
         el.scrollTop = el.scrollHeight; // scroll to bottom?
 
         var value = el.value;
+        this.text = value;
 
         var height = this.calculate_textarea_height();
         var rem = `${height}rem`;
@@ -65,8 +87,6 @@ class Editor extends React.Component {
                 'color', 'black');
 
         this.setState({text: value, textareaStyle: taStyle, cancelable: false});
-
-        //this.calculate_textarea_height();
 
         if(typeof this.props.handleChange === 'function'){
             this.props.handleChange(e);
@@ -78,7 +98,7 @@ class Editor extends React.Component {
 
         var nlines = 1;
         try{
-            nlines = this.state.text.split(/\r?\n/).length;
+            nlines = this.text.split(/\r?\n/).length;
         }catch(e){
             console.log(`we cann't determine number of lines for textarea`);
         }
@@ -87,6 +107,38 @@ class Editor extends React.Component {
         if(nlines > maxLines) return maxLines;
         return nlines;
     }
+
+    render_markdown_or_pre(){
+
+        var text = this.text || '';
+        var markdown_or_pre;
+
+        try{
+            markdown_or_pre = markdown.toHTML(text);
+        }catch(err){
+            //console.log('0912 1707 try markdown catched ', err);
+
+            markdown_or_pre = `
+                <pre>
+                    ${text}
+                </pre>`;
+        }
+
+        const setstate = this.setState;
+        function onclick(e){
+            e.preventDefault();
+            setstate({preview:false});
+        }
+
+        return (
+                <div 
+                onClick={onclick}
+                className="wordsAsText" 
+                dangerouslySetInnerHTML={{__html: markdown_or_pre}} >
+                </div>
+            );
+    }
+
 
 
     renderCancel(){
@@ -102,22 +154,23 @@ class Editor extends React.Component {
     }
 
 
-    render(){
+    render4Edit(){
 
-        //var s = Object.assign({}, this.style);
+        const setstate = this.setState;
+        function clickPreview(e){
+            e.preventDefault();
+            setstate({preview:true});
+            //console.l
+        }
 
-        //// set the height according to lines of text
-        //var nlines = this.state.text.split(/\r?\n/).length;
-        //if(nlines > 4){
-        //    if(nlines > 20){
-        //        nlines = 20;
-        //    }
 
-        //    //this.style.textarea.height = `${nlines}rem`;
-        //    s.textarea.height = `${nlines}rem`;
-        //}
+        var value_or_placeholder = {};
+        var text = this.text;
 
-        
+        if(text){ value_or_placeholder.value = text;
+        }else{ value_or_placeholder.placeholder = this.hint; }
+
+                        //placeholder={this.hint}
         return (
                 <form onSubmit={this.handleSubmit} className="commentEditor">
                     <textarea 
@@ -126,12 +179,17 @@ class Editor extends React.Component {
                         style={this.state.textareaStyle.toObject()}
                         wrap="off"
 
-                        placeholder={this.hints}
+                        {...value_or_placeholder}
 
-                        onChange={this.onChange}
+                        onChange={this.handleChange}
                     ></textarea>
 
                     {this.renderCancel()}
+
+                    <button 
+                        onClick={clickPreview}
+                        className="btn btn-default" style={this.state.buttonStyle.toObject()} >
+                    Preview</button>
 
                     <button type="submit" value="Submit"
                         onClick={this.handleSubmit}
@@ -140,6 +198,13 @@ class Editor extends React.Component {
                 </form>
 
             );
+    }
+
+
+    render(){
+        if(this.state.preview) return this.render_markdown_or_pre(); 
+
+        return this.render4Edit();
     }
 }
 

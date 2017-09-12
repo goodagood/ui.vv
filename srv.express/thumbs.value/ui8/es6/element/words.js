@@ -1,12 +1,12 @@
 
 /*
- * to add new words, an value item.
+ * to add new words, which is an value item.
  */
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-//import {Editor} from "./editor.js";
+import {markdown} from 'markdown';
 
 
 class WordsEditor extends React.Component {
@@ -71,15 +71,15 @@ class WordsEditor extends React.Component {
 
 
     handleSubmit (e){
-        console.log('handle submit  ');
+        //console.log('handle submit  ');
         const self = this;
         e.preventDefault();
         const id = self.props.obj.getIdStr();
-        console.log('id is : ', id);
+        //console.log('id is : ', id);
 
 
         if(typeof id === 'string'){
-            console.log('submit to save');
+            //console.log('submit to save');
             self.props.obj.save().then(function(){
                 if(typeof self.props.afterSubmit === 'function'){
                     self.props.afterSubmit(self.props.obj);
@@ -102,7 +102,7 @@ class WordsEditor extends React.Component {
     
     renderText(){
 
-        var text = this.getWords();
+        var text = this.getWords() || '';
 
         var inlineStyles = {
             textarea: {
@@ -112,24 +112,34 @@ class WordsEditor extends React.Component {
             },
         }
 
-        return (
-                <div>
-                <pre onClick={this.handleClick}>
-                    {text}
-                </pre>
-                </div>
+        try{
+            text = markdown.toHTML(text);
+        }catch(err){
+            //console.log('try markdown catched ', err);
 
+            text = `
+                <pre>
+                    ${text}
+                </pre>`;
+        }
+
+        return (
+                <div 
+                onClick={this.handleClick}
+                className="wordsAsText" 
+                dangerouslySetInnerHTML={{__html: text}} >
+                </div>
             );
     }
 
 
     renderForm(){
 
-        var opt = {};
-        var text = this.getWords();
+        var value_placeholder = {};
+        var text = this.getWords() || '';
 
-        if(text){ opt.value = text;
-        }else{ opt.placeholder = this.getPlaceHolder(); }
+        if(text){ value_placeholder.value = text;
+        }else{ value_placeholder.placeholder = this.getPlaceHolder(); }
 
         var inlineStyles = {
             textarea: {
@@ -143,14 +153,14 @@ class WordsEditor extends React.Component {
             }
         }
 
-        //// set the height according to lines of text
-        //var nlines = text.split(/\r?\n/).length;
-        //if(nlines > 4){
-        //    if(nlines > 20){
-        //        nlines = 20;
-        //    }
-        //    inlineStyles.textarea.height = `${nlines}rem`;
-        //}
+        // set the height according to lines of text
+        var nlines = text.split(/\r?\n/).length;
+        if(nlines > 4){
+            if(nlines > 20){
+                nlines = 20;
+            }
+            inlineStyles.textarea.height = `${nlines}rem`;
+        }
 
         
                         //value={text}
@@ -163,7 +173,7 @@ class WordsEditor extends React.Component {
                         style={inlineStyles.textarea}
                         wrap="off"
 
-                        {...opt}
+                        {...value_placeholder}
 
                         onChange={this.handleTextChange}
                         onBlur={this.handleBlur}
@@ -194,7 +204,7 @@ class WordsEditor extends React.Component {
 function render_one_item(dataObj, cache, htmlElementId, mState){
 
     function view_after_submit(obj){
-        console.log('view af subm');
+        //console.log('view af subm');
         cache.addObj(obj);
         var opt = {'id': obj.getIdStr()};
 
