@@ -14,7 +14,7 @@ var sourcemaps = require('gulp-sourcemaps');
  * then browserify everything in dir src/
  */
 
-gulp.task('build', ['es6', 'scss'], () => {
+gulp.task('build', ['es6', 'scss', 'copy'], () => {
     return build()
 });
 
@@ -56,12 +56,12 @@ function clean(){
     ]);
 }
 
-// not used now
 gulp.task('copy', function () {
     return gulp.src('./src/index.html')
     .pipe(gulp.dest('./dist'));
 });
     
+// not used now
 gulp.task('watch', function () {
     gulp.watch('./scss/**/*.scss', ['scss']);
     gulp.watch('./es6/**/*.js', ['es6']);

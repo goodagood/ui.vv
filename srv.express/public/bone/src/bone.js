@@ -12,7 +12,8 @@ const EventEmitter = require('events');
 class Events extends EventEmitter {};
 
 
-var Backbone = exports;
+//var Backbone = exports;
+var Backbone = {};
 
 // Allow the `Backbone` object to serve as a global event bus, for folks who
 // want global "pubsub" in a convenient place.
@@ -442,5 +443,5 @@ module.exports = Backbone;
 // in node.js:
 // root is global
 // Backbone = exports
-function(root, Backbone, _, $) {
-};
+//function(root, Backbone, _, $) {
+//}

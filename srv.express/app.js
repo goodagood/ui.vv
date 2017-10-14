@@ -29,8 +29,8 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use('/', index);
 app.use('/users', users);
 
-var tvalue = require('./thumbs.value/sysvalue');
-app.use('/sysvalue', tvalue);
+//var tvalue = require('./thumbs.value/sysvalue');
+//app.use('/sysvalue', tvalue);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -36,7 +36,7 @@ router.get('/index', function (req, res) {
 
 //todo check
 router.post('/find', function (req, res) {
-    console.log('/find: ', req.body);
+    //console.log('/find: ', req.body);
 
     var filter = {};
     if ('txt' in req.body){

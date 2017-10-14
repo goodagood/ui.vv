@@ -140,7 +140,7 @@ cc['h4'] = cc['PreProc'];
 cc['h5'] = cc['Title'];
 
 cc['u'] = cc['Title'];
-cc['b'] = cc['Title'];
-cc['i'] = cc['Title'];
+cc['b'] = cc['Error'];
+cc['i'] = cc['Statement'];
 
 module.exports = colorCss;

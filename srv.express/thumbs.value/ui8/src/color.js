@@ -9,8 +9,13 @@ var csse = require("./ui/css.color.eclipse.js");
 
 function colorDefault(scheme){
     fbeach('body',  BLACK, WHITE);
-    fbeach('.logo',  csse['h5']['color'], csse['h5']['background-color']);
-    fbeach('h1',  csse['h1']['color'], csse['h1']['background-color']);
+    fbeach('.logo', csse['h5']['color'], csse['h5']['background-color']);
+    fbeach('h1',    csse['h1']['color'], csse['h1']['background-color']);
+    fbeach('h2',    csse['h2']['color'], csse['h2']['background-color']);
+    fbeach('h3',    csse['h3']['color'], csse['h3']['background-color']);
+    fbeach('i',     csse['i']['color'], csse['i']['background-color']);
+    fbeach('u',     csse['u']['color'], csse['u']['background-color']);
+    fbeach('b',     csse['u']['color'], csse['u']['background-color']);
 }
 
 function color_one(scheme){
